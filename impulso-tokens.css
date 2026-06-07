@@ -1,0 +1,70 @@
+/* ============================================================
+   IMPULSO — Brand Foundation Tokens
+   Marketing digital · tracción y crecimiento medible
+   Import this file in any future project to inherit the identity.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ---- Brand color: Naranja Impulso ---- */
+  --impulso:        #FF5A1F;  /* primary — energy / conversion */
+  --impulso-600:    #E8480F;  /* hover / pressed */
+  --impulso-700:    #C53C0B;  /* deep accent */
+  --impulso-tint:   #FFEFE8;  /* soft background wash */
+  --impulso-100:    #FFE0D2;  /* badge / chip fill */
+
+  /* ---- Logo symbol (doble chevron) ---- */
+  /* The mark is two ascending chevrons. On dark surfaces override
+     --logo-ink to #fff so the upper chevron stays legible.
+     Markup:
+     <svg class="impulso-mark" viewBox="0 0 100 100">
+       <path class="m-ink" d="M28 50 L50 28 L72 50"/>
+       <path class="m-acc" d="M28 72 L50 50 L72 72"/>
+     </svg>  */
+  --logo-ink:       #0E1116;  /* upper chevron (→ #fff on dark) */
+  --logo-accent:    #FF5A1F;  /* lower chevron */
+
+  /* ---- Ink: near-black neutrals ---- */
+  --ink:            #0E1116;  /* primary text / dark surfaces */
+  --ink-800:        #1B2027;
+  --ink-600:        #4A515B;  /* secondary text */
+  --ink-400:        #8A919B;  /* captions / muted */
+  --ink-200:        #D6D2CC;  /* borders on paper */
+
+  /* ---- Paper: off-white surfaces ---- */
+  --paper:          #FAF8F5;  /* page background */
+  --paper-2:        #F2EFEA;  /* alt section */
+  --card:           #FFFFFF;  /* cards / elevated */
+  --line:           #ECE8E2;  /* hairline divider */
+
+  /* ---- Typography ---- */
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* type scale (1.25 ratio, fluid where useful) */
+  --t-display: 600 clamp(48px, 7vw, 88px)/1.02 var(--font-sans);
+  --t-h1:      600 clamp(36px, 4.4vw, 56px)/1.06 var(--font-sans);
+  --t-h2:      600 clamp(26px, 2.6vw, 34px)/1.12 var(--font-sans);
+  --t-h3:      600 20px/1.3 var(--font-sans);
+  --t-body-lg: 400 19px/1.6 var(--font-sans);
+  --t-body:    400 16px/1.65 var(--font-sans);
+  --t-caption: 500 13px/1.4 var(--font-sans);
+
+  /* ---- Radius & elevation ---- */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(14,17,22,.04), 0 2px 6px rgba(14,17,22,.04);
+  --shadow-md: 0 4px 14px rgba(14,17,22,.06), 0 12px 32px rgba(14,17,22,.07);
+
+  /* ---- Spacing rhythm ---- */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --sp-9: 96px; --sp-10: 128px;
+}
+
+/* ---- Logo mark stroke rules ---- */
+.impulso-mark{display:block;}
+.impulso-mark .m-ink{stroke:var(--logo-ink,#0E1116); stroke-width:11; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.impulso-mark .m-acc{stroke:var(--logo-accent,#FF5A1F); stroke-width:11; fill:none; stroke-linecap:round; stroke-linejoin:round;}

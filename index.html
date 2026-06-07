@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impulso — Más clientes para tu negocio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="impulso-tokens.css" rel="stylesheet">
+<style>
+/* page-local aliases on top of impulso-tokens.css */
+:root{
+  --font:var(--font-sans);
+  --wrap:1120px;
+  /* motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-sm: .22s;
+  --dur-md: .4s;
+  --dur-lg: .7s;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--font); -webkit-font-smoothing:antialiased;
+  font-size:16px; line-height:1.65;
+}
+h1,h2,h3,h4{margin:0; font-weight:600; letter-spacing:-0.02em; line-height:1.08;}
+p{margin:0;}
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 32px;}
+
+.eyebrow{font-size:12.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--impulso);}
+.muted{color:var(--ink-600);}
+.tiny{font-size:13px; color:var(--ink-400); font-weight:500;}
+
+/* ---------- symbol (doble chevron ascendente) ---------- */
+.comet{display:block;}
+.comet .m-ink{stroke:var(--logo-ink,var(--ink)); stroke-width:11; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.comet .m-acc{stroke:var(--logo-accent,var(--impulso)); stroke-width:11; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+footer .comet{--logo-ink:#fff;}
+
+/* ---------- wordmark ---------- */
+.wordmark{font-family:var(--font); font-weight:700; letter-spacing:-0.035em; color:var(--ink); line-height:1; display:inline-flex; align-items:baseline;}
+
+/* ---------- top nav ---------- */
+header.nav{position:sticky; top:0; z-index:50; background:rgba(250,248,245,.82); backdrop-filter:saturate(180%) blur(14px); border-bottom:1px solid var(--line);}
+.nav-in{display:flex; align-items:center; justify-content:space-between; height:68px;}
+.nav-logo{display:flex; align-items:center; gap:11px;}
+.nav-logo .comet{width:26px; height:26px; color:var(--impulso);}
+.nav-logo .wordmark{font-size:22px;}
+.nav-links{display:flex; gap:28px; align-items:center;}
+.nav-links a{font-size:14px; font-weight:600; color:var(--ink-600); transition:color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-right{display:flex; align-items:center; gap:20px;}
+.nav-cta-link{font-size:14px; font-weight:600; color:var(--ink-600); white-space:nowrap; transition:color .15s;}
+.nav-cta-link:hover{color:var(--ink);}
+@media (max-width:680px){ .nav-cta-link{display:none;} }
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex; align-items:center; gap:9px; white-space:nowrap; font-family:var(--font); font-weight:700; font-size:16px; letter-spacing:-0.01em; border-radius:var(--r-pill); padding:14px 26px; border:1.5px solid transparent; cursor:pointer; transition:transform .12s ease, background .15s, box-shadow .15s, color .15s; line-height:1;}
+.btn:active{transform:translateY(1px);}
+.btn .arr{transition:transform .18s ease;}
+.btn:hover .arr{transform:translateX(3px);}
+.btn-primary{background:var(--impulso); color:#fff; box-shadow:0 6px 18px rgba(255,90,31,.28);}
+.btn-primary:hover{background:var(--impulso-600); box-shadow:0 8px 24px rgba(255,90,31,.34);}
+.btn-ink{background:var(--ink); color:#fff;}
+.btn-ink:hover{background:var(--ink-800);}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--ink-200);}
+.btn-ghost:hover{border-color:var(--ink); background:#fff;}
+.btn-sm{font-size:14px; padding:10px 18px;}
+.btn-lg{font-size:18px; padding:17px 32px;}
+
+/* ---------- badges ---------- */
+.badge{display:inline-flex; align-items:center; gap:6px; white-space:nowrap; font-size:13px; font-weight:700; letter-spacing:.01em; padding:6px 13px; border-radius:var(--r-pill); line-height:1;}
+.badge .ico{width:6px; height:6px; border-radius:50%; background:currentColor;}
+.badge-solid{background:var(--impulso); color:#fff;}
+.badge-tint{background:var(--impulso-tint); color:var(--impulso-700);}
+.badge-ink{background:var(--ink); color:#fff;}
+.badge-outline{background:transparent; color:var(--ink-600); border:1.5px solid var(--ink-200);}
+.badge-soft{background:var(--paper-2); color:var(--ink-600);}
+
+/* ---------- motion: scroll reveal ---------- */
+.reveal{opacity:0; transform:translateY(28px); transition:opacity var(--dur-lg) var(--ease-out-quart), transform var(--dur-lg) var(--ease-out-quart);}
+.reveal.is-visible{opacity:1; transform:translateY(0);}
+.reveal-group > *{opacity:0; transform:translateY(28px); transition:opacity var(--dur-lg) var(--ease-out-quart), transform var(--dur-lg) var(--ease-out-quart);}
+.reveal-group.is-visible > *{opacity:1; transform:translateY(0);}
+.reveal-group.is-visible > *:nth-child(1){transition-delay:0s;}
+.reveal-group.is-visible > *:nth-child(2){transition-delay:.08s;}
+.reveal-group.is-visible > *:nth-child(3){transition-delay:.16s;}
+.reveal-group.is-visible > *:nth-child(4){transition-delay:.24s;}
+.reveal-group.is-visible > *:nth-child(5){transition-delay:.32s;}
+
+/* ---------- section frame ---------- */
+section{padding:104px 0;}
+.sec-head{max-width:680px; margin:0 auto 56px; text-align:center;}
+.sec-head.left{margin-left:0; text-align:left;}
+.sec-head h2{font-size:clamp(28px,3.4vw,42px); margin:14px 0 16px;}
+.sec-head p{font-size:18px; color:var(--ink-600); text-wrap:pretty;}
+.divider{height:1px; background:var(--line);}
+
+/* ---------- HERO ---------- */
+.hero{position:relative; padding:92px 0 96px; overflow:hidden;}
+.hero-grid{display:grid; grid-template-columns:1.12fr .88fr; gap:56px; align-items:center; position:relative; z-index:2;}
+.hero h1{font-size:clamp(40px,5vw,66px); letter-spacing:-0.04em; line-height:1.0;}
+.hero h1 em{font-style:normal; color:var(--impulso);}
+.hero .sub{font-size:19px; color:var(--ink-600); margin-top:26px; max-width:500px; text-wrap:pretty;}
+.hero .cta-row{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+.hero .trust{display:flex; gap:40px; margin-top:48px; flex-wrap:wrap;}
+/* hero entrance choreography — runs once on load, not on scroll */
+.hero-copy > *{opacity:0; transform:translateY(22px); animation:hero-in var(--dur-lg) var(--ease-out-quart) forwards;}
+.hero-copy > *:nth-child(1){animation-delay:.05s;}
+.hero-copy > *:nth-child(2){animation-delay:.15s;}
+.hero-copy > *:nth-child(3){animation-delay:.27s;}
+.hero-copy > *:nth-child(4){animation-delay:.39s;}
+.hero-card{opacity:0; transform:translateY(28px) scale(.985); animation:hero-in var(--dur-lg) var(--ease-out-quart) forwards; animation-delay:.32s;}
+@keyframes hero-in{to{opacity:1; transform:translateY(0) scale(1);}}
+.hero .trust .num{font-size:32px; font-weight:700; letter-spacing:-0.025em;}
+.hero .trust .num b{color:var(--impulso);}
+.hero .trust .cap{font-size:13px; color:var(--ink-400); font-weight:600; margin-top:3px;}
+.hero-bgcomet{position:absolute; right:-120px; top:-90px; width:min(46vw,560px); color:var(--impulso); opacity:.06; z-index:1; pointer-events:none;}
+
+/* hero dashboard card (reused from brand kit application mock) */
+.hero-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:26px; box-shadow:var(--shadow-md);}
+.hero-card .hc-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
+.hero-card .hc-top .ttl{font-size:14px; font-weight:700;}
+.metric{display:flex; align-items:flex-end; gap:10px;}
+.metric .big{font-size:46px; font-weight:700; letter-spacing:-0.03em; line-height:1;}
+.metric .up{display:inline-flex; align-items:center; gap:4px; white-space:nowrap; font-size:14px; font-weight:700; color:var(--impulso); background:var(--impulso-tint); padding:4px 9px; border-radius:var(--r-pill); margin-bottom:6px;}
+.spark{margin-top:22px;}
+.hc-foot{display:flex; gap:10px; margin-top:20px;}
+.hc-foot .pill{flex:1; background:var(--paper-2); border-radius:10px; padding:11px 12px; text-align:center;}
+.hc-foot .pill .pn{font-size:16px; font-weight:700;} .hc-foot .pill .pl{font-size:11px; color:var(--ink-400); font-weight:600; margin-top:2px;}
+
+/* ---------- SERVICES ---------- */
+.svc-wrap{background:var(--paper-2);}
+.svc-row{display:flex; flex-wrap:wrap; gap:24px; justify-content:center;}
+.svc-card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:30px; box-shadow:var(--shadow-sm); transition:transform var(--dur-md) var(--ease-out-quart), box-shadow var(--dur-md) var(--ease-out-quart), border-color var(--dur-md) var(--ease-out-quart); flex:1 1 320px; max-width:352px;}
+.svc-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md); border-color:var(--ink-200);}
+.svc-ico{width:52px; height:52px; border-radius:14px; background:var(--impulso-tint); display:flex; align-items:center; justify-content:center; margin-bottom:22px; transition:transform var(--dur-md) var(--ease-out-quart), background var(--dur-md) var(--ease-out-quart);}
+.svc-card:hover .svc-ico{transform:scale(1.08) rotate(-4deg); background:var(--impulso-100);}
+.svc-ico svg{width:26px; height:26px; stroke:var(--impulso); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:stroke var(--dur-md) ease;}
+.svc-card h3{font-size:21px; margin-bottom:8px;}
+.svc-card .svc-desc{font-size:15px; color:var(--ink-600); line-height:1.55; text-wrap:pretty;}
+.svc-meta{display:flex; align-items:center; gap:8px; margin-top:22px; padding-top:18px; border-top:1px solid var(--line);}
+.svc-meta .stat{font-size:14px; font-weight:700; color:var(--ink);}
+.svc-meta .stat b{color:var(--impulso);}
+
+/* ---------- PRICING ---------- */
+.price-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; align-items:stretch;}
+.price-card{position:relative; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); padding:34px 32px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; min-width:0; transition:transform var(--dur-md) var(--ease-out-quart), box-shadow var(--dur-md) var(--ease-out-quart);}
+.price-card:not(.featured):hover{transform:translateY(-4px); box-shadow:var(--shadow-md);}
+.price-card.featured{border:1.5px solid var(--impulso); box-shadow:var(--shadow-md); transform:translateY(-8px);}
+.price-card.featured:hover{transform:translateY(-11px);}
+.price-card .p-flag{transition:transform var(--dur-sm) var(--ease-out-quart);}
+.price-card.featured:hover .p-flag{transform:translateX(-50%) scale(1.05);}
+.price-card .p-flag{position:absolute; top:-13px; left:50%; transform:translateX(-50%);}
+.price-card .p-name{font-size:14px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-400);}
+.price-card.featured .p-name{color:var(--impulso);}
+.price-card .p-tag{font-size:14.5px; color:var(--ink-600); margin-top:10px; min-height:42px; text-wrap:pretty;}
+.price-card .p-amt{display:flex; align-items:flex-end; gap:7px; margin:18px 0 4px;}
+.price-card .p-amt .cur{font-size:20px; font-weight:700; color:var(--ink-600); margin-bottom:7px;}
+.price-card .p-amt .num{font-size:48px; font-weight:700; letter-spacing:-0.03em; line-height:1;}
+.price-card .p-amt .per{font-size:15px; font-weight:600; color:var(--ink-400); margin-bottom:7px;}
+.price-card .p-setup{font-size:13px; color:var(--ink-400); font-weight:500;}
+.price-card .p-btn{margin:26px 0;}
+.price-card .p-btn .btn{width:100%; justify-content:center;}
+.feat{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:13px;}
+.feat li{display:flex; align-items:flex-start; gap:11px; font-size:14.5px; color:var(--ink-800); line-height:1.45;}
+.feat li svg{flex:none; width:19px; height:19px; margin-top:1px;}
+.feat li .ck{stroke:var(--impulso); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
+.feat li.off{color:var(--ink-400);}
+.feat li.off svg{stroke:var(--ink-200);}
+.feat-head{font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-400); margin-bottom:16px;}
+
+/* ---------- TESTIMONIALS ---------- */
+.tst-wrap{background:var(--ink); color:#fff;}
+.tst-wrap .eyebrow{color:var(--impulso);}
+.tst-wrap .sec-head h2{color:#fff;}
+.tst-wrap .sec-head p{color:#9AA0A8;}
+.tst-client{display:inline-flex; align-items:center; gap:11px; padding:9px 18px 9px 14px; border:1px solid rgba(255,255,255,.14); border-radius:var(--r-pill); margin:0 auto 48px; }
+.tst-client .af-mark{width:26px; height:26px; border-radius:7px; background:var(--impulso); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:#fff; letter-spacing:-0.04em;}
+.tst-client .af-name{font-size:14px; font-weight:700;}
+.tst-client .af-sub{font-size:13px; color:#9AA0A8; font-weight:500;}
+.tst-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.tst-card{background:var(--ink-800); border:1px solid rgba(255,255,255,.08); border-radius:var(--r-lg); padding:34px; display:flex; flex-direction:column; transition:border-color var(--dur-md) var(--ease-out-quart), transform var(--dur-md) var(--ease-out-quart);}
+.tst-card:hover{border-color:rgba(255,90,31,.28); transform:translateY(-3px);}
+.tst-quote{font-size:20px; line-height:1.5; font-weight:500; letter-spacing:-0.01em; color:#F4F2EF; text-wrap:pretty;}
+.tst-quote .qm{color:var(--impulso); font-weight:700; display:inline-block; transition:transform var(--dur-md) var(--ease-out-quart);}
+.tst-card:hover .qm{transform:scale(1.2);}
+.tst-foot{display:flex; align-items:center; gap:24px; margin-top:28px; padding-top:24px; border-top:1px solid rgba(255,255,255,.1);}
+.tst-person{display:flex; align-items:center; gap:13px; flex:1; min-width:0;}
+.tst-avatar{width:46px; height:46px; border-radius:50%; background:var(--ink); border:1px solid rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; color:var(--impulso); flex:none;}
+.tst-person .nm{font-size:15px; font-weight:700; color:#fff;}
+.tst-person .rl{font-size:13px; color:#9AA0A8; font-weight:500;}
+.tst-result{text-align:right; flex:none;}
+.tst-result .rv{font-size:30px; font-weight:700; letter-spacing:-0.025em; color:var(--impulso); line-height:1;}
+.tst-result .rl{font-size:12px; color:#9AA0A8; font-weight:600; margin-top:5px; max-width:120px;}
+.tst-note{text-align:center; margin-top:32px; font-size:13px; color:#6B7280;}
+
+/* ---------- FINAL CTA ---------- */
+.cta-final{position:relative; overflow:hidden; text-align:center;}
+.cta-final .cta-bgcomet{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(60vw,640px); color:var(--impulso); opacity:.06; pointer-events:none;}
+.cta-final h2{font-size:clamp(34px,4.6vw,56px); letter-spacing:-0.035em; line-height:1.02; max-width:780px; margin:0 auto; text-wrap:balance;}
+.cta-final p{font-size:19px; color:var(--ink-600); margin:22px auto 0; max-width:520px; text-wrap:pretty;}
+.cta-final .cta-row{display:flex; gap:14px; justify-content:center; margin-top:38px; flex-wrap:wrap; position:relative; z-index:2;}
+.cta-final .cta-fine{margin-top:24px; font-size:13.5px; color:var(--ink-400); font-weight:500;}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink); color:#fff; padding:72px 0 56px;}
+footer .f-in{display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap;}
+footer .nav-logo .comet{color:var(--impulso); width:30px; height:30px;}
+footer .nav-logo .wordmark{color:#fff; font-size:26px;}
+footer .f-tag{color:#9AA0A8; font-size:15px; margin-top:16px; max-width:300px; line-height:1.55;}
+footer .f-cols{display:flex; gap:64px; flex-wrap:wrap;}
+footer .f-col h5{font-size:12.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#6B7280; margin:0 0 16px;}
+footer .f-col a{display:block; font-size:14.5px; color:#C9CDD2; font-weight:500; margin-bottom:11px; transition:color .15s;}
+footer .f-col a:hover{color:#fff;}
+footer .f-base{display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; margin-top:56px; padding-top:28px; border-top:1px solid rgba(255,255,255,.1);}
+footer .f-base .copy{font-size:13px; color:#6B7280;}
+footer .f-base .hexs{font-size:13px; color:#6B7280;}
+
+/* ---------- sparkline draw-in ---------- */
+.spark .line{stroke-dasharray:var(--spark-len,460); stroke-dashoffset:var(--spark-len,460); animation:spark-draw 1.1s var(--ease-out-expo) forwards; animation-delay:.85s;}
+.spark .fill{opacity:0; animation:spark-fill .6s ease forwards; animation-delay:1.7s;}
+@keyframes spark-draw{to{stroke-dashoffset:0;}}
+@keyframes spark-fill{to{opacity:1;}}
+
+/* ---------- metric count-up ---------- */
+.metric .big{font-variant-numeric:tabular-nums;}
+
+/* ---------- nav scroll state ---------- */
+header.nav{transition:box-shadow var(--dur-md) ease, border-color var(--dur-md) ease;}
+header.nav.is-scrolled{box-shadow:0 4px 20px rgba(14,17,22,.05);}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal, .reveal-group > *, .hero-copy > *, .hero-card{opacity:1 !important; transform:none !important;}
+  .spark .line{stroke-dashoffset:0 !important;}
+  .spark .fill{opacity:1 !important;}
+}
+
+@media (max-width:920px){
+  section{padding:80px 0;}
+  .hero-grid{grid-template-columns:1fr; gap:44px;}
+  .hero-bgcomet{display:none;}
+  .price-grid{grid-template-columns:1fr; max-width:440px; margin:0 auto;}
+  .price-card.featured{transform:none;}
+  .tst-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+@media (max-width:560px){
+  .hero .trust{gap:28px;}
+  .tst-foot{flex-direction:column; align-items:flex-start; gap:18px;}
+  .tst-result{text-align:left;}
+  footer .f-cols{gap:40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="nav-logo" href="#top">
+      <svg class="comet" viewBox="0 0 100 100" aria-hidden="true"><path class="m-ink" d="M28 50 L50 28 L72 50" /><path class="m-acc" d="M28 72 L50 50 L72 72" /></svg>
+      <span class="wordmark">impulso</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#precios">Precios</a>
+      <a href="#casos">Casos</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#contacto" class="nav-cta-link">Hablá con un asesor</a>
+      <button class="btn btn-primary btn-sm">Pedí tu propuesta <span class="arr">→</span></button>
+    </div>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <svg class="hero-bgcomet" viewBox="0 0 100 100" aria-hidden="true"><path d="M28 50 L50 28 L72 50" fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 72 L50 50 L72 72" fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Más clientes para tu negocio, con <em>números que lo demuestran</em>.</h1>
+        <p class="sub">Landing page, Google Ads, Meta Ads, SEO y tu ficha de Google. Lo armamos, lo medimos y lo mejoramos mes a mes — vos atendés a los clientes que llegan.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary btn-lg">Pedí tu propuesta <span class="arr">→</span></button>
+          <a href="#casos"><button class="btn btn-ghost btn-lg">Ver casos reales</button></a>
+        </div>
+        <div class="trust">
+          <div class="t"><div class="num"><b>+180</b></div><div class="cap">negocios impulsados</div></div>
+          <div class="t"><div class="num"><b>3.4×</b></div><div class="cap">retorno promedio en pauta</div></div>
+          <div class="t"><div class="num"><b>15</b> días</div><div class="cap">a la primera campaña activa</div></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hc-top"><span class="ttl">Consultas este mes</span><span class="badge badge-tint"><span class="ico"></span>En vivo</span></div>
+        <div class="metric"><span class="big">247</span><span class="up">↑ 38%</span></div>
+        <svg class="spark" width="100%" height="76" viewBox="0 0 320 76" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF5A1F" stop-opacity=".18"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></linearGradient></defs>
+          <path class="line" d="M0 62 C 40 60, 60 50, 90 48 C 130 45, 150 40, 190 31 C 230 23, 260 20, 320 9" fill="none" stroke="#FF5A1F" stroke-width="3" stroke-linecap="round"/>
+          <path class="fill" d="M0 62 C 40 60, 60 50, 90 48 C 130 45, 150 40, 190 31 C 230 23, 260 20, 320 9 L320 76 L0 76 Z" fill="url(#g)"/>
+        </svg>
+        <div class="hc-foot">
+          <div class="pill"><div class="pn">112</div><div class="pl">Google Ads</div></div>
+          <div class="pill"><div class="pn">86</div><div class="pl">Meta Ads</div></div>
+          <div class="pill"><div class="pn">49</div><div class="pl">Orgánico</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="svc-wrap" id="servicios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Servicios</div>
+      <h2>Todo lo que tu negocio necesita para crecer online</h2>
+      <p>Elegí lo que necesitás o dejanos armar el paquete completo. Cada canal conectado al mismo objetivo: que entren más consultas y se conviertan en clientes.</p>
+    </div>
+
+    <div class="svc-row reveal-group">
+      <!-- Google Ads -->
+      <div class="svc-card">
+        <div class="svc-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="var(--impulso)" stroke="none"/></svg></div>
+        <span class="badge badge-tint" style="margin-bottom:16px;">Más pedido</span>
+        <h3>Google Ads</h3>
+        <p class="svc-desc">Aparecé primero cuando tu cliente busca lo que vendés. Campañas optimizadas para llamadas y formularios, no para clics vacíos.</p>
+        <div class="svc-meta"><span class="stat">Activa en <b>15 días</b></span></div>
+      </div>
+
+      <!-- Meta Ads -->
+      <div class="svc-card">
+        <div class="svc-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="14" rx="3"/><path d="M3.5 14.5l4-3.5 3 2.5 4-4 6 5"/><circle cx="9" cy="8.5" r="1.4"/></svg></div>
+        <h3>Meta Ads</h3>
+        <p class="svc-desc">Llegá a tu público ideal en Instagram y Facebook con anuncios que generan consultas reales, segmentados por zona e interés.</p>
+        <div class="svc-meta"><span class="stat">Segmentación <b>local</b></span></div>
+      </div>
+
+      <!-- Landing page -->
+      <div class="svc-card">
+        <div class="svc-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="13" rx="2.5"/><path d="M7 21l3-3.5M17 21l-3-3.5"/><path d="M3.5 8.5h17"/><circle cx="6" cy="6.5" r="0.7" fill="var(--impulso)" stroke="none"/></svg></div>
+        <h3>Landing page</h3>
+        <p class="svc-desc">Una página rápida, clara y pensada para convertir. El destino donde tus campañas se transforman en clientes que te escriben.</p>
+        <div class="svc-meta"><span class="stat">Lista en <b>7 días</b></span></div>
+      </div>
+
+      <!-- SEO -->
+      <div class="svc-card">
+        <div class="svc-ico"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/><path d="M7.5 11.5l2 2 3.5-4"/></svg></div>
+        <h3>SEO</h3>
+        <p class="svc-desc">Posicionamiento orgánico para que te encuentren sin pagar por cada clic. Tráfico que se sostiene y crece mes a mes.</p>
+        <div class="svc-meta"><span class="stat">Resultados <b>sostenidos</b></span></div>
+      </div>
+
+      <!-- Google My Business -->
+      <div class="svc-card">
+        <div class="svc-ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+        <h3>Google My Business</h3>
+        <p class="svc-desc">Tu ficha optimizada para que te encuentren en el mapa, con reseñas y fotos que generan confianza y llamadas locales.</p>
+        <div class="svc-meta"><span class="stat">Gestión <b>mensual</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ===== PRICING ===== -->
+<section id="precios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Precios</div>
+      <h2>Un paquete para cada etapa de tu negocio</h2>
+      <p>Sin permanencia obligatoria. Empezás por donde necesitás y escalás cuando los resultados acompañan. Precios en euros, facturación mensual.</p>
+    </div>
+
+    <div class="price-grid reveal-group">
+      <!-- Inicial -->
+      <div class="price-card">
+        <div class="p-name">Inicial</div>
+        <div class="p-tag">Para empezar a aparecer y captar tus primeras consultas online.</div>
+        <div class="p-amt"><span class="cur">EUR</span><span class="num">290</span><span class="per">/mes</span></div>
+        <div class="p-setup">+ EUR 350 de armado inicial (única vez)</div>
+        <div class="p-btn"><button class="btn btn-ghost">Empezar acá <span class="arr">→</span></button></div>
+        <div class="feat-head">Incluye</div>
+        <ul class="feat">
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Landing page (1 página)</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>1 canal a elección (Google o Meta)</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Ficha de Google My Business</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Reporte mensual de resultados</li>
+          <li class="off"><svg viewBox="0 0 24 24"><path class="ck" d="M7 12h10"/></svg>SEO y contenido</li>
+        </ul>
+      </div>
+
+      <!-- Crecimiento (featured) -->
+      <div class="price-card featured">
+        <div class="p-flag"><span class="badge badge-solid">Más vendido</span></div>
+        <div class="p-name">Crecimiento</div>
+        <div class="p-tag">Presencia completa y multicanal para escalar consultas con constancia.</div>
+        <div class="p-amt"><span class="cur">EUR</span><span class="num">380</span><span class="per">/mes</span></div>
+        <div class="p-setup">+ EUR 450 de armado inicial (única vez)</div>
+        <div class="p-btn"><button class="btn btn-primary">Pedí tu propuesta <span class="arr">→</span></button></div>
+        <div class="feat-head">Todo lo de Inicial, más</div>
+        <ul class="feat">
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Landing page de hasta 4 secciones</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Google Ads <b>+</b> Meta Ads</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Optimización quincenal de campañas</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Panel de métricas en vivo</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Asesor asignado por WhatsApp</li>
+        </ul>
+      </div>
+
+      <!-- Full Performance -->
+      <div class="price-card">
+        <div class="p-name">Full Performance</div>
+        <div class="p-tag">Estrategia integral con SEO, para negocios que van por el liderazgo de su zona.</div>
+        <div class="p-amt"><span class="cur">EUR</span><span class="num">480</span><span class="per">/mes</span></div>
+        <div class="p-setup">+ EUR 600 de armado inicial (única vez)</div>
+        <div class="p-btn"><button class="btn btn-ghost">Pedí tu propuesta <span class="arr">→</span></button></div>
+        <div class="feat-head">Todo lo de Crecimiento, más</div>
+        <ul class="feat">
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>SEO y contenido mensual</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Landing page sin límite de secciones</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Optimización semanal de campañas</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Reunión de estrategia mensual</li>
+          <li><svg viewBox="0 0 24 24"><path class="ck" d="M5 12.5l4 4 10-10"/></svg>Presupuesto de pauta gestionado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="tst-wrap" id="casos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Casos reales</div>
+      <h2>Lo que dicen los negocios que confiaron</h2>
+      <p>Trabajamos con empresas que necesitaban profesionalizar su presencia digital y medir cada peso invertido.</p>
+    </div>
+
+    <div style="text-align:center;">
+      <span class="tst-client">
+        <span class="af-mark">AF</span>
+        <span class="af-name">Alta Fe Seguros</span>
+        <span class="af-sub">· Correduría de seguros · Chile &amp; España</span>
+      </span>
+    </div>
+
+    <div class="tst-grid reveal-group">
+      <div class="tst-card">
+        <p class="tst-quote"><span class="qm">“</span>[Cita placeholder — pendiente de aprobación del cliente] Acá va el testimonio real de Daniela sobre el resultado que obtuvieron con las campañas y la nueva landing page.<span class="qm">”</span></p>
+        <div class="tst-foot">
+          <div class="tst-person">
+            <div class="tst-avatar">DV</div>
+            <div>
+              <div class="nm">Daniela Vilches López</div>
+              <div class="rl">Comercial · Alta Fe Seguros</div>
+            </div>
+          </div>
+          <div class="tst-result">
+            <div class="rv">+42%</div>
+            <div class="rl">consultas por mes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <p class="tst-quote"><span class="qm">“</span>[Cita placeholder — pendiente de aprobación del cliente] Acá va el testimonio real de Jorge sobre el retorno de la inversión y el acompañamiento del equipo.<span class="qm">”</span></p>
+        <div class="tst-foot">
+          <div class="tst-person">
+            <div class="tst-avatar">JR</div>
+            <div>
+              <div class="nm">Jorge Riquelme Obando</div>
+              <div class="rl">Fundador · Alta Fe Seguros</div>
+            </div>
+          </div>
+          <div class="tst-result">
+            <div class="rv">3.1×</div>
+            <div class="rl">retorno en pauta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="tst-note">Las citas son provisorias — reemplazá el texto entre corchetes por los testimonios reales antes de publicar.</p>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="cta-final" id="contacto">
+  <svg class="cta-bgcomet" viewBox="0 0 100 100" aria-hidden="true"><path d="M28 50 L50 28 L72 50" fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 72 L50 50 L72 72" fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="wrap reveal">
+    <div class="eyebrow" style="margin-bottom:18px;">Empecemos</div>
+    <h2>Contanos sobre tu negocio y te armamos una propuesta a medida.</h2>
+    <p>Sin compromiso. En una llamada de 20 minutos entendemos tu situación y te mostramos por dónde empezar.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary btn-lg">Pedí tu propuesta <span class="arr">→</span></button>
+      <button class="btn btn-ghost btn-lg">Hablá con un asesor</button>
+    </div>
+    <p class="cta-fine">Respondemos en menos de 24 horas hábiles.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="f-in">
+      <div>
+        <div class="nav-logo">
+          <svg class="comet" viewBox="0 0 100 100" aria-hidden="true"><path class="m-ink" d="M28 50 L50 28 L72 50" /><path class="m-acc" d="M28 72 L50 50 L72 72" /></svg>
+          <span class="wordmark">impulso</span>
+        </div>
+        <p class="f-tag">Movimiento, tracción y crecimiento medible para negocios que quieren más.</p>
+      </div>
+      <div class="f-cols">
+        <div class="f-col">
+          <h5>Servicios</h5>
+          <a href="#servicios">Google Ads</a>
+          <a href="#servicios">Meta Ads</a>
+          <a href="#servicios">Landing page</a>
+          <a href="#servicios">SEO</a>
+          <a href="#servicios">Google My Business</a>
+        </div>
+        <div class="f-col">
+          <h5>Empresa</h5>
+          <a href="#precios">Precios</a>
+          <a href="#casos">Casos</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-base">
+      <span class="copy">© 2026 Impulso · Marketing digital con resultados medibles</span>
+      <span class="hexs">Argentina · LATAM + España</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Scroll-reveal: secciones y grupos de cards
+    var revealEls = document.querySelectorAll('.reveal, .reveal-group');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    } else {
+      var revealObserver = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+    }
+
+    // Header: estado "scrolled" para sombra/fondo
+    var nav = document.querySelector('header.nav');
+    if (nav) {
+      var onScroll = function () {
+        nav.classList.toggle('is-scrolled', window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    // Hero metric: count-up de 0 a 247
+    var metric = document.querySelector('.metric .big');
+    if (metric && !reduceMotion) {
+      var target = parseInt(metric.textContent, 10) || 0;
+      var duration = 1400;
+      var startTime = null;
+
+      var step = function (timestamp) {
+        if (startTime === null) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        metric.textContent = Math.round(eased * target);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          metric.textContent = target;
+        }
+      };
+
+      metric.textContent = '0';
+      window.requestAnimationFrame(step);
+    }
+  })();
+</script>
+
+</body>
+</html>
