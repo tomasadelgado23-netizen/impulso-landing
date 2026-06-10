@@ -133,6 +133,31 @@ section{padding:104px 0;}
 .hc-foot .pill{flex:1; background:var(--paper-2); border-radius:10px; padding:11px 12px; text-align:center;}
 .hc-foot .pill .pn{font-size:16px; font-weight:700;} .hc-foot .pill .pl{font-size:11px; color:var(--ink-400); font-weight:600; margin-top:2px;}
 
+/* ---------- PAINS ---------- */
+.pain-wrap{background:var(--ink); color:#F4F2EF; overflow:hidden;}
+.pain-grid{display:grid; grid-template-columns:.72fr 1.28fr; gap:clamp(56px,8vw,112px); align-items:start;}
+.pain-intro{position:sticky; top:112px;}
+.pain-intro .eyebrow{color:var(--impulso);}
+.pain-intro h2{font-size:clamp(34px,4.2vw,54px); margin-top:18px; letter-spacing:-0.04em;}
+.pain-intro p{font-size:17px; color:#AEB3BA; margin-top:24px; max-width:390px; text-wrap:pretty;}
+.pain-list{list-style:none; margin:0; padding:0; counter-reset:pain;}
+.pain-list li{
+  counter-increment:pain; display:grid; grid-template-columns:54px 1fr; gap:18px;
+  padding:25px 0; border-top:1px solid rgba(255,255,255,.12);
+  font-size:clamp(19px,2vw,26px); line-height:1.3; letter-spacing:-0.02em;
+}
+.pain-list li:last-child{border-bottom:1px solid rgba(255,255,255,.12);}
+.pain-list li::before{
+  content:"0" counter(pain); color:var(--impulso); font-size:12px; font-weight:700;
+  letter-spacing:.12em; padding-top:8px;
+}
+.pain-list strong{color:#fff; font-weight:650;}
+.pain-bridge{
+  display:flex; align-items:center; gap:18px; margin-top:34px;
+  color:#D9D6D1; font-size:15px; font-weight:600;
+}
+.pain-bridge::before{content:""; width:44px; height:2px; background:var(--impulso); flex:none;}
+
 /* ---------- SERVICES ---------- */
 .svc-wrap{background:var(--paper-2);}
 .svc-row{display:flex; flex-wrap:wrap; gap:24px; justify-content:center;}
@@ -251,6 +276,9 @@ header.nav.is-scrolled{box-shadow:0 4px 20px rgba(14,17,22,.05);}
   section{padding:80px 0;}
   .hero-grid{grid-template-columns:1fr; gap:44px;}
   .hero-bgcomet{display:none;}
+  .pain-grid{grid-template-columns:1fr; gap:44px;}
+  .pain-intro{position:static;}
+  .pain-intro p{max-width:620px;}
   .price-grid{grid-template-columns:1fr; max-width:440px; margin:0 auto;}
   .price-card.featured{transform:none;}
   .tst-grid{grid-template-columns:1fr;}
@@ -319,6 +347,32 @@ header.nav.is-scrolled{box-shadow:0 4px 20px rgba(14,17,22,.05);}
           <div class="pill"><div class="pn">86</div><div class="pl">Meta Ads</div></div>
           <div class="pill"><div class="pn">49</div><div class="pl">Orgánico</div></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLIENT PAINS ===== -->
+<section class="pain-wrap" id="problemas">
+  <div class="wrap">
+    <div class="pain-grid">
+      <div class="pain-intro reveal">
+        <div class="eyebrow">Lo que frena a una pyme</div>
+        <h2>El problema no es hacer poco. Es no saber qué está funcionando.</h2>
+        <p>Estos son los problemas que más se repiten en las pequeñas y medianas empresas: acciones desconectadas, oportunidades sin seguimiento y herramientas que no ayudan a vender.</p>
+      </div>
+
+      <div>
+        <ol class="pain-list reveal-group">
+          <li>Haces marketing, pero no sabes si realmente <strong>te trae clientes.</strong></li>
+          <li>Dependes demasiado del boca a boca y cada vez <strong>te da menos resultados.</strong></li>
+          <li>Pierdes oportunidades porque no haces <strong>seguimiento a tiempo.</strong></li>
+          <li>WhatsApp está desordenado y los clientes <strong>se pierden entre mensajes.</strong></li>
+          <li>Tienes web, redes o CRM, pero <strong>no funcionan como deberían.</strong></li>
+          <li>Publicas en redes, pero no sabes si eso <strong>genera ventas.</strong></li>
+          <li>Pagas acciones de marketing, pero no ves <strong>resultados claros en la caja.</strong></li>
+        </ol>
+        <p class="pain-bridge reveal">Impulso conecta captación, seguimiento y medición en un mismo sistema.</p>
       </div>
     </div>
   </div>
